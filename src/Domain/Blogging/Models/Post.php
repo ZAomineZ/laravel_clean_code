@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace Domain\Blogging\Models;
 
-use App\Models\Concerns\HasKey;
-use App\Models\Concerns\HasSlug;
+use Domain\Blogging\Models\Builders\PostBuilder;
+use Domain\Shared\Models\Concerns\HasKey;
+use Domain\Shared\Models\Concerns\HasSlug;
+use Domain\Shared\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -40,5 +42,10 @@ class Post extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function newEloquentBuilder($query): PostBuilder
+    {
+        return new PostBuilder($query);
     }
 }
