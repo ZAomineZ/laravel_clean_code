@@ -29,6 +29,11 @@ class Post extends Model
         'published' => 'boolean'
     ];
 
+    public function getRouteKeyName(): string
+    {
+        return 'key';
+    }
+
     /**
      * @return BelongsTo<User>
      */

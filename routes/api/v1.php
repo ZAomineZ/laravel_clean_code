@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Api\V1\Posts\IndexController;
+use App\Http\Controllers\Api\V1\Posts\ShowController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix("posts")->as("posts:")->group(function () {
     Route::get('/', IndexController::class)->name('index'); // Route(api:v1:posts:index)
+    Route::get('/{post:key}', ShowController::class)->name('show'); // Route(api:v1:posts:show)
 });
