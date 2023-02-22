@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Domain\Blogging\Jobs\Posts;
 
+use Domain\Blogging\Aggregates\PostAggregate;
 use Domain\Blogging\ValueObjects\PostValueObject;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Str;
 
 final class CreatePost implements ShouldQueue
 {
@@ -27,8 +29,9 @@ final class CreatePost implements ShouldQueue
      */
     public function handle(): void
     {
-        \Domain\Blogging\Actions\CreatePost::handle(
-          $this->object
-        );
+        $uuid = Str::uuid();
+        PostAggregate::retrieve($uuid->toString())
+            ->createPost($this->object, 1)
+            ->persist();
     }
 }
