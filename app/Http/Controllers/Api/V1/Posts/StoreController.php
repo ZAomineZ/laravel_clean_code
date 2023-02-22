@@ -20,6 +20,6 @@ final class StoreController extends Controller
         );
 
         // Return
-        return response()->json(null, status: Http::CREATED->value);
+        return response()->json($post, status: Http::CREATED->value);
     }
 }
