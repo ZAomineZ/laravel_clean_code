@@ -2,33 +2,28 @@
 
 declare(strict_types=1);
 
-namespace App\Jobs\Posts;
+namespace Domain\Blogging\Jobs\Posts;
 
-use Domain\Blogging\ValueObjects\PostValueObject;
+use Domain\Blogging\Models\Post;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-final class CreatePost implements ShouldQueue
+final class DeletePost implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * Create a new job instance.
-     */
     public function __construct(
-        public PostValueObject $object
-    ) {}
+        public int $postID
+    )
+    {}
 
-    /**
-     * Execute the job.
-     */
     public function handle(): void
     {
-        \Domain\Blogging\Actions\CreatePost::handle(
-          $this->object
-        );
+        $post = Post::find($this->postID);
+
+        $post->delete();
     }
 }
