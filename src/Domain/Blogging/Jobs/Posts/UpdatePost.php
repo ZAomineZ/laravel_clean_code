@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Blogging\Jobs\Posts;
 
+use Domain\Blogging\Aggregates\PostAggregate;
 use Domain\Blogging\Models\Post;
 use Domain\Blogging\ValueObjects\PostValueObject;
 use Illuminate\Bus\Queueable;
@@ -28,8 +29,8 @@ final class UpdatePost implements ShouldQueue
     {
         $post = Post::find($this->postID);
 
-        \Domain\Blogging\Actions\UpdatePost::handle(
-          $this->object, $post
-        );
+        PostAggregate::retrieve($post->uuid)
+            ->updatePost($this->object, $post->id)
+            ->persist();
     }
 }

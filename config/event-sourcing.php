@@ -1,5 +1,7 @@
 <?php
 
+use Domain\Blogging\Events\PostWasCreated;
+
 return [
 
     /*
@@ -87,7 +89,9 @@ return [
      * event class. This allows you to change the namespace or class names
      * of your events but still handle older events correctly.
      */
-    'event_class_map' => [],
+    'event_class_map' => [
+        'post-created' => PostWasCreated::class
+    ],
 
     /*
      * This class is responsible for serializing events. By default an event will be serialized

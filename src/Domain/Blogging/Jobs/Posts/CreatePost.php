@@ -31,7 +31,7 @@ final class CreatePost implements ShouldQueue
     {
         $uuid = Str::uuid();
         PostAggregate::retrieve($uuid->toString())
-            ->createPost($this->object, 1)
+            ->createPost($this->object, 1, $uuid->toString())
             ->persist();
     }
 }

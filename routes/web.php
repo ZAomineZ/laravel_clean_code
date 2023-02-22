@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Web\Posts\StoreController;
+use Domain\Blogging\Reports\PostsCreatedOverPeriod;
 use Illuminate\Support\Facades\Route;
+use Spatie\Period\Period;
 
 Route::view('/', 'welcome')->name('home');
 
@@ -13,6 +15,14 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+});
+
+Route::get('/test', function () {
+    $report = new PostsCreatedOverPeriod(
+        Period::make("2023-02-22 13:29:46", "2023-02-22 17:18:08")
+    );
+
+    dd($report->totalPosts());
 });
 
 /**
