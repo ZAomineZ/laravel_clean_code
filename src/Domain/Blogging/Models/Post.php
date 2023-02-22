@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Domain\Blogging\Models;
 
 use Domain\Blogging\Models\Builders\PostBuilder;
-use Domain\Shared\Models\Concerns\HasKey;
-use Domain\Shared\Models\Concerns\HasSlug;
+use Domain\Blogging\Models\Concerns\IsPost;
 use Domain\Shared\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    use HasFactory, SoftDeletes, HasKey, HasSlug;
+    use HasFactory, SoftDeletes, IsPost;
 
     protected $fillable = [
         'key',

@@ -9,6 +9,7 @@ use App\Http\Resources\Api\V1\PostResource;
 use Domain\Blogging\Models\Post;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Infrastructure\Http\Responses\ApiResponse;
 use JustSteveKing\StatusCode\Http;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -27,9 +28,9 @@ final class IndexController extends Controller
             )
             ->paginate(3);
 
-        return response()->json(
-            data: PostResource::collection($posts),
-            status: Http::OK->value
+        return ApiResponse::handle(
+            PostResource::collection($posts),
+            Http::OK->value
         );
     }
 }
