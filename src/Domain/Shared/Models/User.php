@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Domain\Shared\Models;
 
+use Database\Factories\PostFactory;
+use Database\Factories\UserFactory;
 use Domain\Blogging\Models\Post;
 use Domain\Shared\Models\Concerns\HasKey;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -77,5 +79,10 @@ class User extends Authenticatable
         return $this->hasMany(
             Post::class, 'user_id'
         );
+    }
+
+    protected static function newFactory(): UserFactory
+    {
+        return resolve(UserFactory::class);
     }
 }

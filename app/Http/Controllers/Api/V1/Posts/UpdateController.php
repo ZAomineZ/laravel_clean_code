@@ -24,7 +24,7 @@ final class UpdateController extends Controller
 
         // return
         return response()->json(
-            new PostResource($post), Http::ACCEPTED->value
+            new PostResource($post), Http::CREATED->value
         );
     }
 }

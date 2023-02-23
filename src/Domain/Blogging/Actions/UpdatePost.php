@@ -11,6 +11,9 @@ final class UpdatePost
 {
     public static function handle(PostValueObject $object, Post $post): bool
     {
-        return $post->update($object->toArray());
+        return $post->update(array_merge(
+            $object->toArray(),
+            ['user_id' => 1]
+        ));
     }
 }

@@ -13,7 +13,8 @@ class PostFactory
         return new PostValueObject(
             title: $attributes['title'],
             body: $attributes['body'],
-            description: $attributes['description']
+            description: $attributes['description'],
+            published: $attributes['published'] ?? false
         );
     }
 }

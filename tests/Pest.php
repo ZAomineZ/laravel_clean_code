@@ -13,8 +13,8 @@
 
 uses(
     Tests\TestCase::class,
-    // Illuminate\Foundation\Testing\RefreshDatabase::class,
-)->in('API');
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
+)->in('API', 'Web', 'Domain');
 
 /*
 |--------------------------------------------------------------------------

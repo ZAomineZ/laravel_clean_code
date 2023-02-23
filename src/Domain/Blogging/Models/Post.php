@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Blogging\Models;
 
+use Database\Factories\PostFactory;
 use Domain\Blogging\Models\Builders\PostBuilder;
 use Domain\Blogging\Models\Collections\PostCollection;
 use Domain\Blogging\Models\Concerns\IsPost;
@@ -16,7 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    use HasFactory, SoftDeletes, IsPost;
+    use SoftDeletes, IsPost, HasFactory;
 
     protected $fillable = [
         'uuid',
@@ -54,5 +55,10 @@ class Post extends Model
     public function newEloquentBuilder($query): PostBuilder
     {
         return new PostBuilder($query);
+    }
+
+    protected static function newFactory(): PostFactory
+    {
+        return resolve(PostFactory::class);
     }
 }
